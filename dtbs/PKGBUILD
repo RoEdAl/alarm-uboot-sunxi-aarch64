@@ -1,0 +1,65 @@
+#
+# Additional DTBs for Allwinner H5 SoCs
+#
+
+_rcver=4.15
+_rcrel=7
+
+_cfgrel=056e0aebda34b23d92aba8f0d10f15c3228aba45
+_srcname=linux-${_rcver}-rc${_rcrel}
+
+pkgbase='sun50i-h5-dtbs'
+pkgname=('orangepi-dtbs' 'nanopi-dtbs')
+pkgver=${_rcver}.rc${_rcrel}
+pkgrel=2
+arch=('aarch64')
+url="http://www.kernel.org/"
+license=('GPL2')
+depends=("linux-aarch64-rc>=${pkgver}")
+makedepends=('bc' 'git')
+options=('!strip')
+
+source=("http://git.kernel.org/torvalds/t/${_srcname}.tar.gz"
+	'0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus-with-Expansion-B.patch'
+	"http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64-rc/config")
+md5sums=('c94fe83caa8956ca6e751511d56513ba'
+         '26734d7e05a23e8c59e2a655dc62a7ab'
+         '3d58725e46de092fdce67db31661d998')
+
+prepare() {
+  cd "${srcdir}/${_srcname}"
+
+  # custom patches
+  git apply --verbose ../0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus-with-Expansion-B.patch
+
+  cat "${srcdir}/config" > ./.config
+
+  # add pkgrel to extraversion
+  sed -ri "s|^(EXTRAVERSION =)(.*)|\1 \2-${pkgrel}|" Makefile
+}
+
+build() {
+  cd "${srcdir}/${_srcname}"
+  
+  export DTC_FLAGS=--symbols
+
+  make prepare
+  make dtbs
+}
+
+package_nanopi-dtbs() {
+  pkgdesc='Additional DTBs for NanoPi boards'
+  cd "${srcdir}/${_srcname}"
+
+  mkdir -p "${pkgdir}/boot/dtbs/allwinner"
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi-neo2.dtb "${pkgdir}/boot/dtbs/allwinner/sun50i-h5-nanopi-neo2_.dtb"
+}
+
+package_orangepi-dtbs() {
+  pkgdesc='Additional DTBs for Orange Pi boards'
+  cd "${srcdir}/${_srcname}"
+
+  mkdir -p "${pkgdir}/boot/dtbs/allwinner"
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/boot/dtbs/allwinner"
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus-exbrd.dtb "${pkgdir}/boot/dtbs/allwinner"
+}
