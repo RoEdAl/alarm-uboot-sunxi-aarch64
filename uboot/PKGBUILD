@@ -1,0 +1,97 @@
+# U-Boot: sunXi (NanoPi/Orange Pi)
+
+pkgbase='uboot-sun50i-h5'
+pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus')
+pkgver=2018.01
+pkgrel=2
+arch=('aarch64')
+url="http://git.denx.de/u-boot.git/"
+license=('GPL')
+options=('!strip')
+makedepends=('bc' 'dtc' 'python2' 'swig')
+backup=(
+	'boot/boot.txt'
+	'boot/boot.scr')
+optdepends=('uboot-tools' 'sun50i-h5-dt-overlays')
+
+source=('atf::git+https://github.com/apritzel/arm-trusted-firmware.git#branch=allwinner'
+	"ftp://ftp.denx.de/pub/u-boot/u-boot-${pkgver}.tar.bz2"
+	'nanopi_neo2_defconfig'
+	'orangepi_zero_plus_defconfig'
+	'sun50i-h5-orangepi-zero-plus.dts'
+	'boot.txt'
+	'mkscr')
+md5sums=('SKIP'
+         'b42e45813369f4ae84490a481e531768'
+         '1338b804724f666d4d7437ffc9fe604c'
+         'd2f3a9f36e3dffe3f97cfb8b54b776fa'
+         'fae0f6c05aebd63a2c68b793f0c90841'
+         '89eba551e6d5a95e8cf2935cce7f977c'
+         '96d327ad1824134515d3ec25b4ffd7c6')
+
+boards=('nanopi_neo2' 'orangepi_zero_plus')
+
+prepare() {
+  cd u-boot-${pkgver}
+
+  cp ${srcdir}/nanopi_neo2_defconfig configs
+  cp arch/arm/dts/sun50i-h5-nanopi-neo2.dts arch/arm/dts/sun50i-h5-nanopi-neo2_.dts
+
+  cp ${srcdir}/orangepi_zero_plus_defconfig configs
+  cp ${srcdir}/sun50i-h5-orangepi-zero-plus.dts arch/arm/dts
+}
+
+build() {
+  unset CXXFLAGS LDFLAGS
+  CFLAGS='-fno-stack-protector'
+
+  # ATF
+  cd atf
+  make PLAT=sun50iw1p1 DEBUG=1 V=0 bl31
+
+  # U-Boot
+  unset CFLAGS
+  cd ../u-boot-${pkgver}
+  
+  for i in ${boards[@]}; do
+    mkdir ../bin_${i}
+    make distclean
+    make ${i}_config
+    echo 'CONFIG_IDENT_STRING=" Arch Linux ARM"' >> .config
+    echo 'CONFIG_OF_LIBFDT_OVERLAY=y' >> .config
+    make EXTRAVERSION=-${pkgrel} PYTHON=python2 DTC=/usr/bin/dtc BL31=${srcdir}/atf/build/sun50iw1p1/debug/bl31.bin
+    cat spl/sunxi-spl.bin u-boot.itb > ../bin_${i}/u-boot-sunxi-with-spl.bin
+  done
+
+  tools/mkimage -A arm64 -O linux -T script -C none -n "U-Boot boot script" -d ../boot.txt ../boot.scr
+}
+
+package_uboot-nanopi-neo2() {
+  pkgdesc='U-Boot for NanoPi Neo2'
+  install=${pkgbase}.install
+  provides=('uboot-sunxi')
+  conflicts=('uboot-sunxi')
+  depends=('linux-aarch64-rc' 'nanopi-dtbs')
+
+  install -d "${pkgdir}/boot"
+  install -Dm644 bin_nanopi_neo2/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"
+
+  install -Dm644 boot.txt "${pkgdir}/boot/boot.txt"
+  install -Dm644 boot.scr "${pkgdir}/boot/boot.scr"
+  install -Dm755 mkscr "${pkgdir}/boot/mkscr"
+}
+
+package_uboot-orangepi-zero-plus() {
+  pkgdesc='U-Boot for Orange Pi Zero Plus'
+  install=${pkgbase}.install
+  provides=('uboot-sunxi')
+  conflicts=('uboot-sunxi')
+  depends=('linux-aarch64-rc' 'orangepi-dtbs')
+
+  install -d "${pkgdir}/boot"
+  install -Dm644 bin_orangepi_zero_plus/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"
+
+  install -Dm644 boot.txt "${pkgdir}/boot/boot.txt"
+  install -Dm644 boot.scr "${pkgdir}/boot/boot.scr"
+  install -Dm755 mkscr "${pkgdir}/boot/mkscr"
+}
