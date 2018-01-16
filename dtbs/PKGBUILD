@@ -3,15 +3,15 @@
 #
 
 _rcver=4.15
-_rcrel=7
+_rcrel=8
 
-_cfgrel=056e0aebda34b23d92aba8f0d10f15c3228aba45
+_cfgrel=ce591baadddbce43c9cb80e10cca501a46aef7d6
 _srcname=linux-${_rcver}-rc${_rcrel}
 
 pkgbase='sun50i-h5-dtbs'
 pkgname=('orangepi-dtbs' 'nanopi-dtbs')
 pkgver=${_rcver}.rc${_rcrel}
-pkgrel=3
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -22,9 +22,9 @@ options=('!strip')
 source=("http://git.kernel.org/torvalds/t/${_srcname}.tar.gz"
 	'0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus.patch'
 	"http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64-rc/config")
-md5sums=('c94fe83caa8956ca6e751511d56513ba'
+md5sums=('ad8277e87079747f0e352f1fba151d38'
          '3e1c2e7007084519a5ed0c8f2ac98c4c'
-         '3d58725e46de092fdce67db31661d998')
+         '5bd923c06aa6bcf8aad98d707afb0958')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
