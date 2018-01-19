@@ -11,7 +11,7 @@ _srcname=linux-${_rcver}-rc${_rcrel}
 pkgbase='sun50i-h5-dtbs'
 pkgname=('orangepi-dtbs' 'nanopi-dtbs')
 pkgver=${_rcver}.rc${_rcrel}
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -23,7 +23,7 @@ source=("http://git.kernel.org/torvalds/t/${_srcname}.tar.gz"
 	'0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus.patch'
 	"http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64-rc/config")
 md5sums=('ad8277e87079747f0e352f1fba151d38'
-         '3e1c2e7007084519a5ed0c8f2ac98c4c'
+         'e43f9443866d793a6c9fc03400b196d1'
          '5bd923c06aa6bcf8aad98d707afb0958')
 
 prepare() {
