@@ -3,7 +3,7 @@
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus')
 pkgver=2018.01
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
@@ -20,14 +20,16 @@ source=('atf::git+https://github.com/apritzel/arm-trusted-firmware.git#branch=al
 	'orangepi_zero_plus_defconfig'
 	'sun50i-h5-orangepi-zero-plus.dts'
 	'boot.txt'
-	'mkscr')
+	'mkscr.sh'
+	'flash-uboot.sh')
 md5sums=('SKIP'
          'b42e45813369f4ae84490a481e531768'
          '1338b804724f666d4d7437ffc9fe604c'
          'd2f3a9f36e3dffe3f97cfb8b54b776fa'
          'fae0f6c05aebd63a2c68b793f0c90841'
          '89eba551e6d5a95e8cf2935cce7f977c'
-         '96d327ad1824134515d3ec25b4ffd7c6')
+         '96d327ad1824134515d3ec25b4ffd7c6'
+         '2881da461476253d93a74a7c4a4c7ad3')
 
 boards=('nanopi_neo2' 'orangepi_zero_plus')
 
@@ -78,7 +80,8 @@ package_uboot-nanopi-neo2() {
 
   install -Dm644 boot.txt "${pkgdir}/boot/boot.txt"
   install -Dm644 boot.scr "${pkgdir}/boot/boot.scr"
-  install -Dm755 mkscr "${pkgdir}/boot/mkscr"
+  install -Dm755 mkscr.sh "${pkgdir}/boot/mkscr"
+  install -Dm755 flash-uboot.sh "${pkgdir}/boot/flash-uboot"
 }
 
 package_uboot-orangepi-zero-plus() {
@@ -93,5 +96,6 @@ package_uboot-orangepi-zero-plus() {
 
   install -Dm644 boot.txt "${pkgdir}/boot/boot.txt"
   install -Dm644 boot.scr "${pkgdir}/boot/boot.scr"
-  install -Dm755 mkscr "${pkgdir}/boot/mkscr"
+  install -Dm755 mkscr.sh "${pkgdir}/boot/mkscr"
+  install -Dm755 flash-uboot.sh "${pkgdir}/boot/flash-uboot"
 }
