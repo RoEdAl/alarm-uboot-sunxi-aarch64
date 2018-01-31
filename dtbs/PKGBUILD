@@ -2,35 +2,31 @@
 # Additional DTBs for Allwinner H5 SoCs
 #
 
-_rcver=4.15
-_rcrel=8
-
-_cfgrel=ce591baadddbce43c9cb80e10cca501a46aef7d6
-_srcname=linux-${_rcver}-rc${_rcrel}
-
 pkgbase='sun50i-h5-dtbs'
 pkgname=('orangepi-dtbs' 'nanopi-dtbs')
-pkgver=${_rcver}.rc${_rcrel}
-pkgrel=2
+pkgver=4.15
+pkgrel=1
+_srcname=linux-4.15
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-depends=("linux-aarch64-rc>=${pkgver}")
+depends=("linux>=${pkgver}.0")
 makedepends=('bc' 'git')
 options=('!strip')
+_cfgrel=81478b9c124ef13c3749b40fcf9ef544d24b6631
 
-source=("http://git.kernel.org/torvalds/t/${_srcname}.tar.gz"
+source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
 	'0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus.patch'
-	"http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64-rc/config")
-md5sums=('ad8277e87079747f0e352f1fba151d38'
+	"http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config")
+md5sums=('0d701ac1e2a67d47ce7127432df2c32b'
          'e43f9443866d793a6c9fc03400b196d1'
-         '5bd923c06aa6bcf8aad98d707afb0958')
+         'f5183ec7a29254844369b08271f360d7')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
 
   # custom patches
-  git apply --verbose ../0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus.patch
+  git apply ../0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus.patch
 
   cat "${srcdir}/config" > ./.config
 
