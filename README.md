@@ -10,4 +10,4 @@ See [this](http://github.com/RoEdAl/alarm-sunxi-dt-overlays-aarch64) repository 
 
 ---
 
-All bootloaders requires Linux kernel version *4.15-rc6* or above - you must install `linux-aarch64-rc` package.
+All bootloaders requires Linux kernel version *4.15.0* or above.
