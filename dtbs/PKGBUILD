@@ -5,7 +5,7 @@
 pkgbase='sun50i-h5-dtbs'
 pkgname=('orangepi-dtbs' 'nanopi-dtbs')
 pkgver=4.15
-pkgrel=1
+pkgrel=2
 _srcname=linux-4.15
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -57,4 +57,6 @@ package_orangepi-dtbs() {
 
   mkdir -p "${pkgdir}/boot/dtbs/allwinner"
   cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/boot/dtbs/allwinner"
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dtb "${pkgdir}/boot/dtbs/allwinner/sun50i-h5-orangepi-pc2_.dtb"
+
 }
