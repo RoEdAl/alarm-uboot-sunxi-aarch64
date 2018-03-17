@@ -11,7 +11,6 @@ See [this](//github.com/RoEdAl/alarm-sunxi-dt-overlays-aarch64) repository for m
 
 ## Build issues:
 
-* `uboot-*` packages: Build fails when `dtc` package is installed.
 * `uboot-*` packages: Due to `git-apply` behaviour packages you must build `uboot-*` packages  **outside** a git repository.
   Specify **BUILDDIR** in [`~/.makepkg.conf`](http://www.archlinux.org/pacman/makepkg.conf.5.html) file.
 * `uboot-orangepi-pc2` package: HDMI port is not initialized - no HDMI output.

@@ -2,13 +2,13 @@
 
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2')
-pkgver=2018.01
-pkgrel=5
+pkgver=2018.03
+pkgrel=1
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
 options=('!strip')
-makedepends=('bc' 'python2' 'swig')
+makedepends=('bc' 'python2' 'swig' 'dtc')
 backup=(
 	'boot/boot.txt'
 	'boot/boot.scr')
@@ -25,11 +25,11 @@ source=('atf::git+https://github.com/apritzel/arm-trusted-firmware.git#branch=al
 	'mkscr.sh'
 	'flash-uboot.sh')
 md5sums=('SKIP'
-         'b42e45813369f4ae84490a481e531768'
-         '1338b804724f666d4d7437ffc9fe604c'
-         'd2f3a9f36e3dffe3f97cfb8b54b776fa'
+         '02922bdf0ee003fe25bfc32749ffdeab'
+         '8ea8951d81bc32aba36cd6f2879e8d8e'
+         'd6e13950e1d99cd01b28af67c2284235'
          '2d5222551076004503edc9569e92b2d7'
-         '9b41dd5fd3c329dc59d3c74bff45d409'
+         '6b0e902ffb42386421ca96acfb4ab89b'
          'fae0f6c05aebd63a2c68b793f0c90841'
          '89eba551e6d5a95e8cf2935cce7f977c'
          '96d327ad1824134515d3ec25b4ffd7c6'
@@ -69,7 +69,7 @@ build() {
     make distclean
     make ${i}_config
     scripts/kconfig/merge_config.sh .config ${srcdir}/config-fragment
-    env PATH=${PATH}:${srcdir}/u-boot-${pkgver}/scripts/dtc make EXTRAVERSION=-${pkgrel} PYTHON=python2 BL31=${srcdir}/atf/build/sun50iw1p1/debug/bl31.bin ${MAKEOPTS}
+    make EXTRAVERSION=-${pkgrel} PYTHON=python2 BL31=${srcdir}/atf/build/sun50iw1p1/debug/bl31.bin ${MAKEOPTS}
     cat spl/sunxi-spl.bin u-boot.itb > ../bin_${i}/u-boot-sunxi-with-spl.bin
   done
 
