@@ -1,7 +1,7 @@
-From ca0d13ae93bbb6c447d894b54785eb5dfd407785 Mon Sep 17 00:00:00 2001
+From 9170a44dec4e259ea701c87f83226cb44954484a Mon Sep 17 00:00:00 2001
 From: Edmunt Pienkowsky <roed@onet.eu>
-Date: Fri, 19 Jan 2018 18:45:06 +0000
-Subject: [PATCH] arm64: dts: sunxi: Orange Pi Zero Plus
+Date: Tue, 10 Apr 2018 10:43:11 +0200
+Subject: [PATCH 1/2] arm64: dts: sunxi: Orange Pi Zero Plus
 
 Signed-off-by: Edmunt Pienkowsky <roed@onet.eu>
 ---
@@ -11,7 +11,7 @@ Signed-off-by: Edmunt Pienkowsky <roed@onet.eu>
  create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
 
 diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
-index f505227b0..915604e46 100644
+index f505227b0250..915604e46e88 100644
 --- a/arch/arm64/boot/dts/allwinner/Makefile
 +++ b/arch/arm64/boot/dts/allwinner/Makefile
 @@ -7,6 +7,7 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-pine64-plus.dtb sun50i-a64-pine64.dtb
@@ -24,7 +24,7 @@ index f505227b0..915604e46 100644
  dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h5-nanopi-neo-plus2.dtb
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
 new file mode 100644
-index 000000000..387e4184e
+index 000000000000..ae59bf05cbc6
 --- /dev/null
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
 @@ -0,0 +1,176 @@
@@ -155,7 +155,7 @@ index 000000000..387e4184e
 +
 +&mmc0 {
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&mmc0_pins_a>, <&mmc0_cd_pin>;
++	pinctrl-0 = <&mmc0_pins_a>;
 +	vmmc-supply = <&reg_vcc3v3>;
 +	bus-width = <4>;
 +	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
@@ -205,5 +205,5 @@ index 000000000..387e4184e
 +	status = "okay";
 +};
 -- 
-2.15.1
+2.16.2
 

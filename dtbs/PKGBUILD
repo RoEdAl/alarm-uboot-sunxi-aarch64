@@ -4,25 +4,26 @@
 
 pkgbase='sun50i-h5-dtbs'
 pkgname=('orangepi-dtbs' 'nanopi-dtbs')
-pkgver=4.15
-pkgrel=3
-_srcname=linux-4.15
+pkgver=4.16
+pkgrel=1
+_srcname=linux-4.16
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 depends=("linux>=${pkgver}.0")
 makedepends=('bc' 'git')
 options=('!strip')
-_cfgrel=81478b9c124ef13c3749b40fcf9ef544d24b6631
+
+_cfgrel=88ed719293e141e6b5bb0b3d1f9f68789be5351f
 
 source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
 	'0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus.patch'
 	'0002-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch'
 	"http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config")
-md5sums=('0d701ac1e2a67d47ce7127432df2c32b'
-         'e43f9443866d793a6c9fc03400b196d1'
-         '3264dd579a3341ef5179a6ec405da645'
-         'f5183ec7a29254844369b08271f360d7')
+md5sums=('1357fb4ee7c288fdeac5d4e0048f5c18'
+         '1ea305d1520d2b924ec889a34a81b393'
+         '95ba21ba5368e6c75da148fec1c563f5'
+         'f0e6403851b62184ade37074e06ab622')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
@@ -61,5 +62,4 @@ package_orangepi-dtbs() {
   mkdir -p "${pkgdir}/boot/dtbs/allwinner"
   cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/boot/dtbs/allwinner"
   cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dtb "${pkgdir}/boot/dtbs/allwinner/sun50i-h5-orangepi-pc2_.dtb"
-
 }
