@@ -1,9 +1,9 @@
-# U-Boot: sunXi (NanoPi/Orange Pi)
+# Maintainer: Edmunt Pienkowsky <roed@onet.eu>
 
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2')
-pkgver=2018.03
-pkgrel=2
+pkgver=2018.05
+pkgrel=1
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
@@ -12,8 +12,6 @@ makedepends=('bc' 'python2' 'swig' 'dtc')
 backup=(
 	'boot/boot.txt'
 	'boot/boot.scr')
-optdepends=('uboot-tools' 'sun50i-h5-dt-overlays')
-
 source=('atf::git+https://github.com/apritzel/arm-trusted-firmware.git#branch=allwinner'
 	"ftp://ftp.denx.de/pub/u-boot/u-boot-${pkgver}.tar.bz2"
 	'nanopi_neo2_defconfig'
@@ -25,55 +23,52 @@ source=('atf::git+https://github.com/apritzel/arm-trusted-firmware.git#branch=al
 	'mkscr.sh'
 	'flash-uboot.sh')
 md5sums=('SKIP'
-         '02922bdf0ee003fe25bfc32749ffdeab'
-         '8ea8951d81bc32aba36cd6f2879e8d8e'
-         'd6e13950e1d99cd01b28af67c2284235'
-         '2d5222551076004503edc9569e92b2d7'
-         '47225b4238b024574a2d0215400dc630'
+         'ad5c59bc19724c1679feb2a0c9ff4a25'
+         '8113a11591e0c5033478b9293f4b4f25'
+         '0e0f7c7347022007af43c5225a12f8f2'
+         'aaa246fbca5cbd34d18a674521dd289f'
+         '9b41dd5fd3c329dc59d3c74bff45d409'
          'fae0f6c05aebd63a2c68b793f0c90841'
-         '89eba551e6d5a95e8cf2935cce7f977c'
-         '96d327ad1824134515d3ec25b4ffd7c6'
+         'a760a344258511491dd032b7497c71c9'
+         'd46c501c5e750bcdf53263733ab94f9f'
          '2881da461476253d93a74a7c4a4c7ad3')
 
-boards=('nanopi_neo2' 'orangepi_zero_plus' 'orangepi_pc2')
+_boards=('nanopi_neo2' 'orangepi_zero_plus' 'orangepi_pc2')
 
 prepare() {
   cd u-boot-${pkgver}
 
   cp ${srcdir}/nanopi_neo2_defconfig configs
-  cp arch/arm/dts/sun50i-h5-nanopi-neo2.dts arch/arm/dts/sun50i-h5-nanopi-neo2_.dts
 
   cp ${srcdir}/orangepi_zero_plus_defconfig configs
   cp ${srcdir}/sun50i-h5-orangepi-zero-plus.dts arch/arm/dts
 
   cp ${srcdir}/orangepi_pc2_defconfig configs
-  cp arch/arm/dts/sun50i-h5-orangepi-pc2.dts arch/arm/dts/sun50i-h5-orangepi-pc2_.dts
 }
 
 build() {
+  # http://github.com/u-boot/u-boot/blob/master/board/sunxi/README.sunxi64
+
   local MAKEOPTS='V=0'
 
-  unset CXXFLAGS LDFLAGS
-  CFLAGS='-fno-stack-protector'
-
-  # ATF
+  # ATF - modified environments
   cd atf
-  make PLAT=sun50iw1p1 DEBUG=1 bl31 ${MAKEOPTS}
+  env -u CXXFLAGS -u LDFLAGS CFLAGS=-fno-stack-protector make PLAT=sun50iw1p1 DEBUG=0 bl31 ${MAKEOPTS}
 
-  # U-Boot
-  unset CFLAGS
+  # U-Boot - unmodified environments
   cd ../u-boot-${pkgver}
 
-  for i in ${boards[@]}; do
+  for i in ${_boards[@]}; do
     mkdir ../bin_${i}
     make distclean
     make ${i}_config
     scripts/kconfig/merge_config.sh .config ${srcdir}/config-fragment
-    make EXTRAVERSION=-${pkgrel} PYTHON=python2 BL31=${srcdir}/atf/build/sun50iw1p1/debug/bl31.bin ${MAKEOPTS}
+    make EXTRAVERSION=-${pkgrel} PYTHON=python2 BL31=${srcdir}/atf/build/sun50iw1p1/release/bl31.bin ${MAKEOPTS}
     cat spl/sunxi-spl.bin u-boot.itb > ../bin_${i}/u-boot-sunxi-with-spl.bin
   done
 
-  tools/mkimage -A arm64 -O linux -T script -C none -n "U-Boot boot script" -d ../boot.txt ../boot.scr
+  # boot script - arm64 architecture
+  tools/mkimage -A arm64 -O linux -T script -C none -n 'U-Boot boot script' -d ../boot.txt ../boot.scr
 }
 
 package_uboot-nanopi-neo2() {
@@ -81,7 +76,7 @@ package_uboot-nanopi-neo2() {
   install=${pkgbase}.install
   provides=('uboot-sunxi')
   conflicts=('uboot-sunxi')
-  depends=('nanopi-dtbs')
+  optdepends=('nanopi-dtbs' 'uboot-tools' 'sun50i-h5-dt-overlays')
 
   install -d "${pkgdir}/boot"
   install -Dm644 bin_nanopi_neo2/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"
@@ -98,6 +93,7 @@ package_uboot-orangepi-zero-plus() {
   provides=('uboot-sunxi')
   conflicts=('uboot-sunxi')
   depends=('orangepi-dtbs')
+  optdepends=('uboot-tools' 'sun50i-h5-dt-overlays')
 
   install -d "${pkgdir}/boot"
   install -Dm644 bin_orangepi_zero_plus/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"
@@ -113,7 +109,7 @@ package_uboot-orangepi-pc2() {
   install=${pkgbase}.install
   provides=('uboot-sunxi')
   conflicts=('uboot-sunxi')
-  depends=('orangepi-dtbs')
+  optdepends=('orangepi-dtbs' 'uboot-tools' 'sun50i-h5-dt-overlays')
 
   install -d "${pkgdir}/boot"
   install -Dm644 bin_orangepi_pc2/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"

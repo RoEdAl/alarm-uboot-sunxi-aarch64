@@ -3,8 +3,8 @@
 ## Supported devices:
 
 * [OrangePi Zero Plus](http://www.orangepi.org/OrangePiZeroPlus/) - `uboot-orangepi-zero` (requires additional DTB from `orangepi-dtbs`)
-* [OrangePi PC2](http://www.orangepi.org/orangepipc2/) - `uboot-orangepi-pc2` (requires additional DTB from `orangepi-dtbs`)
-* [NanoPi Neo2](http://www.friendlyarm.com/index.php?route=product/product&product_id=180) - `uboot-nanopi-neo` (requires additional DTB from `nanopi-dtbs`)
+* [OrangePi PC2](http://www.orangepi.org/orangepipc2/) - `uboot-orangepi-pc2` (optionally uses tweaked DTB from `orangepi-dtbs`)
+* [NanoPi Neo2](http://www.friendlyarm.com/index.php?route=product/product&product_id=180) - `uboot-nanopi-neo` (optionally uses tweaked DTB from `nanopi-dtbs`)
 
 Theese bootloaders are ready to apply additional DT overlays from [Armbian's Device Tree overlays for sunxi devices](//github.com/armbian/sunxi-DT-overlays).
 See [this](//github.com/RoEdAl/alarm-sunxi-dt-overlays-aarch64) repository for more info.
