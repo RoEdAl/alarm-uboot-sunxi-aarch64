@@ -5,7 +5,7 @@
 pkgbase='sun50i-h5-dtbs'
 pkgname=('orangepi-dtbs' 'nanopi-dtbs')
 pkgver=4.16
-pkgrel=1
+pkgrel=2
 _srcname=linux-4.16
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -51,15 +51,17 @@ package_nanopi-dtbs() {
   pkgdesc='Additional DTBs for NanoPi boards'
   cd "${srcdir}/${_srcname}"
 
-  mkdir -p "${pkgdir}/boot/dtbs/allwinner"
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi-neo2.dtb "${pkgdir}/boot/dtbs/allwinner/sun50i-h5-nanopi-neo2_.dtb"
+  mkdir -p "${pkgdir}/boot/dtbs-extra/allwinner"
+
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi-neo2.dtb "${pkgdir}/boot/dtbs-extra/allwinner"
 }
 
 package_orangepi-dtbs() {
   pkgdesc='Additional DTBs for Orange Pi boards'
   cd "${srcdir}/${_srcname}"
 
-  mkdir -p "${pkgdir}/boot/dtbs/allwinner"
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/boot/dtbs/allwinner"
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dtb "${pkgdir}/boot/dtbs/allwinner/sun50i-h5-orangepi-pc2_.dtb"
+  mkdir -p "${pkgdir}/boot/dtbs-extra/allwinner"
+
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/boot/dtbs-extra/allwinner"
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dtb "${pkgdir}/boot/dtbs-extra/allwinner"
 }
