@@ -11,7 +11,7 @@ See [this](//github.com/RoEdAl/alarm-sunxi-dt-overlays-aarch64) repository for m
 
 ## SD Card preparation
 
-## Classic way
+### Classic way
 
 Replace sdX in the following instructions with the device name for the SD card as it appears on your computer.
 
