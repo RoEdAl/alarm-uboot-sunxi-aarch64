@@ -3,7 +3,7 @@
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2')
 pkgver=2018.05
-pkgrel=3
+pkgrel=4
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
@@ -92,8 +92,7 @@ package_uboot-orangepi-zero-plus() {
   install=${pkgbase}.install
   provides=('uboot-sunxi')
   conflicts=('uboot-sunxi')
-  depends=('orangepi-dtbs')
-  optdepends=('uboot-tools' 'sun50i-h5-dt-overlays')
+  optdepends=('orangepi-dtbs' 'uboot-tools' 'sun50i-h5-dt-overlays')
 
   install -d "${pkgdir}/boot"
   install -Dm644 bin_orangepi_zero_plus/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"
