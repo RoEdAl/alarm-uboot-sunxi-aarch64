@@ -57,16 +57,6 @@ Replace sdX in the following instructions with the device name for the SD card a
    cp boot/boot.scr root/boot
    sync
    ```
-1. Download appropriate DTBS package from [releases](//github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases) (*OrangePi Zero Plus* only):
-   ```
-   wget https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/orangepi-dtbs-x.yy-r-aarch64.pkg.tar.xz
-   ```
-1. Extract and install DTB (*OrangePi Zero Plus* only):
-   ```
-   bsdtar -xf orangepi-dtbs-x.yy-r-aarch64.pkg.tar.xz boot/dtbs-extra/allwinner/sun50i-h5-orangepi-zero-plus.dtb
-   mv boot/dtbs-extra root/boot
-   sync
-   ```
 1. Umount the partition:
    ```
    umount root   
@@ -139,15 +129,6 @@ Replace sdX in the following instructions with the device name for the SD card a
    dd if=boot/u-boot-sunxi-with-spl.bin of=/dev/sdX bs=8k seek=1
    sync
    rm boot/u-boot-sunxi-with-spl.bin
-   ```
-1. Download appropriate DTBS package from [releases](//github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases) (*OrangePi Zero Plus* only):
-   ```
-   wget https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/orangepi-dtbs-x.yy-r-aarch64.pkg.tar.xz
-   ```
-1. Extract and install DTB (*OrangePi Zero Plus* only):
-   ```
-   bsdtar -xf orangepi-dtbs-x.yy-r-aarch64.pkg.tar.xz boot/dtbs-extra/allwinner/sun50i-h5-orangepi-zero-plus.dtb
-   sync
    ```
 1. Inform bootloader that root filestystem is on second partition:
    ```

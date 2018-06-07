@@ -4,9 +4,9 @@
 
 pkgbase='sun50i-h5-dtbs'
 pkgname=('orangepi-dtbs' 'nanopi-dtbs')
-pkgver=4.16
-pkgrel=2
-_srcname=linux-4.16
+pkgver=4.17
+pkgrel=1
+_srcname=linux-4.17
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -14,23 +14,20 @@ depends=("linux>=${pkgver}.0")
 makedepends=('bc' 'git')
 options=('!strip')
 
-_cfgrel=88ed719293e141e6b5bb0b3d1f9f68789be5351f
+_cfgrel=ce807c2612aae93f97ecda19ab7af6ad17152834
 
 source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
-	'0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus.patch'
-	'0002-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch'
+	'0001-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch'
 	"http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config")
-md5sums=('1357fb4ee7c288fdeac5d4e0048f5c18'
-         '1ea305d1520d2b924ec889a34a81b393'
-         '95ba21ba5368e6c75da148fec1c563f5'
-         'f0e6403851b62184ade37074e06ab622')
+md5sums=('5bb13a03274b66b56c85b26682e407d7'
+         '4646b7bb9670945d0289f07f75ee6c62'
+         '02251a347bc3f8daa61cd8bbb8883584')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
 
   # custom patches
-  git apply ../0001-arm64-dts-sunxi-Orange-Pi-Zero-Plus.patch
-  git apply ../0002-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch
+  git apply ../0001-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch
 
   cat "${srcdir}/config" > ./.config
 
