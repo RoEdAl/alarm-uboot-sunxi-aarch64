@@ -166,4 +166,4 @@ Replace sdX in the following instructions with the device name for the SD card a
 
 * `uboot-*` packages: Due to `git-apply` behaviour packages you must build `uboot-*` packages  **outside** a git repository.
   Specify **BUILDDIR** in [`~/.makepkg.conf`](http://www.archlinux.org/pacman/makepkg.conf.5.html) file.
-* `uboot-orangepi-pc2` package: HDMI port is not initialized - no HDMI output.
+* `uboot-orangepi-pc2` package: ~~HDMI port is not initialized - no HDMI output~~ HDMI initialization was added in kernel 4.17.
