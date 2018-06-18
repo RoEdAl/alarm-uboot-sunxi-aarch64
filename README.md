@@ -65,7 +65,12 @@ Replace sdX in the following instructions with the device name for the SD card a
 1. Use the serial console or SSH to the IP address given to the board by your router.
    - Login as the default user *alarm* with the password *alarm*.
    - The default *root* password is *root*.
-1. After logging into the system install U-Boot and DTBS packages:
+1. After logging into the system initialize the pacman keyring and populate the Arch Linux ARM [package signing](//archlinuxarm.org/about/package-signing) keys:
+   ```
+   pacman-key --init
+   pacman-key --populate archlinuxarm
+   ```
+1. Install also *U-Boot* and *DTBS* packages:
    ```
    pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/<brand-name>-dtbs-x.yy-r-aarch64.pkg.tar.xz
    ```
@@ -87,7 +92,7 @@ Replace sdX in the following instructions with the device name for the SD card a
    - Type **p** to list partitions. There should be no partitions left.
    - Type **n**, then **p** for primary, **1** for the first partition on the drive, **4096** for the first sector,
      and then type **+256M** for the last sector.
-   - Type **n**, then **p** for primary, **2** for the second partition on the drive, and then press *ENTER* twice to accept the default first and last sector.
+   - Type **n**, then **p** for primary, **2** for the second partition on the drive, **528384** for the first sector, and then press **ENTER** to accept the default last sector.
    - Write the partition table and exit by typing **w**.
 1. Create the boot filesystem:
    ```
@@ -152,7 +157,12 @@ Replace sdX in the following instructions with the device name for the SD card a
 1. Use the serial console or SSH to the IP address given to the board by your router.
    - Login as the default user *alarm* with the password *alarm*.
    - The default *root* password is *root*.
-1. After logging into the system install U-Boot and DTBS packages:
+1. After logging into the system initialize the pacman keyring and populate the Arch Linux ARM [package signing](//archlinuxarm.org/about/package-signing) keys:
+   ```
+   pacman-key --init
+   pacman-key --populate archlinuxarm
+   ```
+1. Install also *U-Boot* and *DTBS* packages:
    ```
    pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/<brand-name>-dtbs-x.yy-r-aarch64.pkg.tar.xz
    ```
