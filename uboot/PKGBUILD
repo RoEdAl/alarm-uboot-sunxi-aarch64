@@ -2,8 +2,8 @@
 
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2')
-pkgver=2018.05
-pkgrel=5
+pkgver=2018.09
+pkgrel=1
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
@@ -14,21 +14,15 @@ backup=(
 	'boot/boot.scr')
 source=('atf::git+https://github.com/apritzel/arm-trusted-firmware.git#branch=allwinner'
 	"ftp://ftp.denx.de/pub/u-boot/u-boot-${pkgver}.tar.bz2"
-	'nanopi_neo2_defconfig'
-	'orangepi_zero_plus_defconfig'
 	'orangepi_pc2_defconfig'
 	'config-fragment'
-	'sun50i-h5-orangepi-zero-plus.dts'
 	'boot.txt'
 	'mkscr.sh'
 	'flash-uboot.sh')
 md5sums=('SKIP'
-         'ad5c59bc19724c1679feb2a0c9ff4a25'
-         '8113a11591e0c5033478b9293f4b4f25'
-         '0e0f7c7347022007af43c5225a12f8f2'
-         'aaa246fbca5cbd34d18a674521dd289f'
+         'f3a80a7d46e44a002fd332e49830e9e3'
+         '2fa68756be3c43a0ab3efd3dbb7bc1b8'
          '9b41dd5fd3c329dc59d3c74bff45d409'
-         'fae0f6c05aebd63a2c68b793f0c90841'
          '741e729f28b8cfffb1b85a2588e4eb1f'
          'd46c501c5e750bcdf53263733ab94f9f'
          '2881da461476253d93a74a7c4a4c7ad3')
@@ -37,11 +31,6 @@ _boards=('nanopi_neo2' 'orangepi_zero_plus' 'orangepi_pc2')
 
 prepare() {
   cd u-boot-${pkgver}
-
-  cp ${srcdir}/nanopi_neo2_defconfig configs
-
-  cp ${srcdir}/orangepi_zero_plus_defconfig configs
-  cp ${srcdir}/sun50i-h5-orangepi-zero-plus.dts arch/arm/dts
 
   cp ${srcdir}/orangepi_pc2_defconfig configs
 }
@@ -59,6 +48,7 @@ build() {
   cd ../u-boot-${pkgver}
 
   for i in ${_boards[@]}; do
+    msg2 ${i}
     mkdir ../bin_${i}
     make distclean
     make ${i}_config
