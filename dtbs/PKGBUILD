@@ -4,9 +4,9 @@
 
 pkgbase='sun50i-h5-dtbs'
 pkgname=('orangepi-dtbs' 'nanopi-dtbs')
-pkgver=4.18
+pkgver=4.19
 pkgrel=1
-_srcname=linux-4.18
+_srcname=linux-4.19
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -14,14 +14,14 @@ depends=("linux>=${pkgver}.0")
 makedepends=('bc' 'git')
 options=('!strip')
 
-_cfgrel=bab1a57cfb48c5b63eba2343ad9489df709d4fff
+_cfgrel=5dbd7f23036728f1e7fab56451f7416ccceccbf7
 
 source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
 	'0001-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch'
-	"http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config")
-md5sums=('bee5fe53ee1c3142b8f0c12c0d3348f9'
-         '39640ed0637aed9544f5844ee9c2981a'
-         '96969a438a2a4e39df5ed44e8ba68c03')
+	"config-${pkgver}::http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config")
+md5sums=('740a90cf810c2105df8ee12e5d0bb900'
+         '6e784fbca6181043f6e0c6dc1b704d21'
+         '1fadeca6502c809ada798982be336e37')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
@@ -29,7 +29,7 @@ prepare() {
   # custom patches
   git apply ../0001-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch
 
-  cat "${srcdir}/config" > ./.config
+  cat "${srcdir}/config-${pkgver}" > ./.config
 
   # add pkgrel to extraversion
   sed -ri "s|^(EXTRAVERSION =)(.*)|\1 \2-${pkgrel}|" Makefile
