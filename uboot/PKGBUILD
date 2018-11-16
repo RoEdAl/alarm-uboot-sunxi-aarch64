@@ -2,7 +2,7 @@
 
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2')
-pkgver=2018.09
+pkgver=2018.11
 pkgrel=1
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
@@ -14,14 +14,14 @@ backup=(
 	'boot/boot.scr')
 source=('atf::git+https://github.com/apritzel/arm-trusted-firmware.git#branch=allwinner'
 	"ftp://ftp.denx.de/pub/u-boot/u-boot-${pkgver}.tar.bz2"
-	'orangepi_pc2_defconfig'
+	'0001-Update-configuration-for-Orange-Pi-PC2.patch'
 	'config-fragment'
 	'boot.txt'
 	'mkscr.sh'
 	'flash-uboot.sh')
 md5sums=('SKIP'
-         'f3a80a7d46e44a002fd332e49830e9e3'
-         '2fa68756be3c43a0ab3efd3dbb7bc1b8'
+         '80604e79f64517afadccb02f3c55a6cb'
+         '24c1ee70feb349225608a638cf111e5d'
          '9b41dd5fd3c329dc59d3c74bff45d409'
          '741e729f28b8cfffb1b85a2588e4eb1f'
          'd46c501c5e750bcdf53263733ab94f9f'
@@ -32,7 +32,7 @@ _boards=('nanopi_neo2' 'orangepi_zero_plus' 'orangepi_pc2')
 prepare() {
   cd u-boot-${pkgver}
 
-  cp ${srcdir}/orangepi_pc2_defconfig configs
+  git apply ../0001-Update-configuration-for-Orange-Pi-PC2.patch
 }
 
 build() {
