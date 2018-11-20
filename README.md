@@ -2,11 +2,11 @@
 
 ## Supported devices
 
-Board | U-Boot package | Optional Dependencies
-:----:|:--------------:|:---------------------:
-[OrangePi Zero Plus](http://www.orangepi.org/OrangePiZeroPlus/)|`uboot-orangepi-zero`|`orangepi-dtbs`
-[OrangePi PC2](http://www.orangepi.org/orangepipc2/)|`uboot-orangepi-pc2`|`orangepi-dtbs`
-[NanoPi Neo2](http://www.friendlyarm.com/index.php?route=product/product&product_id=180)|`uboot-nanopi-neo2`|`nanopi-dtbs`
+Board | U-Boot package
+:----:|:-------------:
+[OrangePi Zero Plus](http://www.orangepi.org/OrangePiZeroPlus/)|`uboot-orangepi-zero`
+[OrangePi PC2](http://www.orangepi.org/orangepipc2/)|`uboot-orangepi-pc2`
+[NanoPi Neo2](http://www.friendlyarm.com/index.php?route=product/product&product_id=180)|`uboot-nanopi-neo2`
 
 Theese bootloaders are ready to apply additional DT overlays from [Armbian's Device Tree overlays for sunxi devices](//github.com/armbian/sunxi-DT-overlays).
 See [this](//github.com/RoEdAl/alarm-sunxi-dt-overlays-aarch64) repository for more info.
@@ -72,10 +72,10 @@ Replace sdX in the following instructions with the device name for the SD card a
    pacman-key --init
    pacman-key --populate archlinuxarm
    ```
-1. Install also *U-Boot* and *DTBS* packages:
+1. Install also *U-Boot* package:
    ```
-   pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/<brand-name>-dtbs-x.yy-r-aarch64.pkg.tar.xz
-   ```
+   pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
+    ```
 
 ### Separate boot (ext4) and root (f2fs) partitions
 
@@ -164,9 +164,9 @@ Replace sdX in the following instructions with the device name for the SD card a
    pacman-key --init
    pacman-key --populate archlinuxarm
    ```
-1. Install also *U-Boot* and *DTBS* packages:
+1. Install also *U-Boot* package:
    ```
-   pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/<brand-name>-dtbs-x.yy-r-aarch64.pkg.tar.xz
+   pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
    ```
 1. Install `f2fs-tools` package and rebuild *initcpio*:
    ```
