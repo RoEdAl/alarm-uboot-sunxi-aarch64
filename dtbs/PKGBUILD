@@ -1,33 +1,26 @@
-#
-# Additional DTBs for Allwinner H5 SoCs
-#
+# Maintainer: Edmunt Pienkowsky <roed@onet.eu>
 
-pkgbase='sun50i-h5-dtbs'
-pkgname=('orangepi-dtbs' 'nanopi-dtbs')
-pkgver=4.19
+pkgname='sunxi-dtbs'
+pkgver=4.19.0
 pkgrel=1
+pkgdesc='Additional DTBs for Allwinder-based boards'
 _srcname=linux-4.19
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-depends=("linux>=${pkgver}.0")
+depends=('linux>=4.19.0')
 makedepends=('bc' 'git')
 options=('!strip')
 
 _cfgrel=5dbd7f23036728f1e7fab56451f7416ccceccbf7
 
 source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
-	'0001-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch'
 	"config-${pkgver}::http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config")
 md5sums=('740a90cf810c2105df8ee12e5d0bb900'
-         '6e784fbca6181043f6e0c6dc1b704d21'
          '1fadeca6502c809ada798982be336e37')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
-
-  # custom patches
-  git apply ../0001-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch
 
   cat "${srcdir}/config-${pkgver}" > ./.config
 
@@ -38,27 +31,17 @@ prepare() {
 build() {
   cd "${srcdir}/${_srcname}"
   
-  export DTC_FLAGS=--symbols
-
   make prepare
-  make dtbs
+  env DTC_FLAGS=--symbols make dtbs
 }
 
-package_nanopi-dtbs() {
-  pkgdesc='Additional DTBs for NanoPi boards'
+package() {
   cd "${srcdir}/${_srcname}"
 
-  mkdir -p "${pkgdir}/boot/dtbs-extra/allwinner"
+  local _dstdir=usr/share/${pkgname}
+  mkdir -p "${pkgdir}/${_dstdir}"
 
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi-neo2.dtb "${pkgdir}/boot/dtbs-extra/allwinner"
-}
-
-package_orangepi-dtbs() {
-  pkgdesc='Additional DTBs for Orange Pi boards'
-  cd "${srcdir}/${_srcname}"
-
-  mkdir -p "${pkgdir}/boot/dtbs-extra/allwinner"
-
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/boot/dtbs-extra/allwinner"
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dtb "${pkgdir}/boot/dtbs-extra/allwinner"
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi-neo2.dtb "${pkgdir}/${_dstdir}"
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/${_dstdir}"
+  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dtb "${pkgdir}/${_dstdir}"
 }

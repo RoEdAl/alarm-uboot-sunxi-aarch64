@@ -8,7 +8,7 @@ arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
 options=('!strip')
-makedepends=('bc' 'python2' 'swig' 'dtc')
+makedepends=('bc' 'python2' 'swig' 'dtc' 'sunxi-dtbs>4.19')
 backup=(
 	'boot/boot.txt'
 	'boot/boot.scr')
@@ -22,7 +22,7 @@ source=('atf::git+https://github.com/apritzel/arm-trusted-firmware.git#branch=al
 md5sums=('SKIP'
          '80604e79f64517afadccb02f3c55a6cb'
          '24c1ee70feb349225608a638cf111e5d'
-         '9b41dd5fd3c329dc59d3c74bff45d409'
+         '1d64d5946cfc3f7c2ae877f2e892152d'
          '741e729f28b8cfffb1b85a2588e4eb1f'
          'd46c501c5e750bcdf53263733ab94f9f'
          '2881da461476253d93a74a7c4a4c7ad3')
@@ -65,47 +65,46 @@ package_uboot-nanopi-neo2() {
   pkgdesc='U-Boot for NanoPi Neo2'
   install=${pkgbase}.install
   provides=('uboot-sunxi')
-  conflicts=('uboot-sunxi')
-  optdepends=('nanopi-dtbs' 'uboot-tools' 'sun50i-h5-dt-overlays')
+  conflicts=('uboot-sunxi' 'nanopi-dtbs')
+  optdepends=('uboot-tools' 'sun50i-h5-dt-overlays')
 
-  install -d "${pkgdir}/boot"
-  install -Dm644 bin_nanopi_neo2/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"
-
+  install -d "${pkgdir}/boot/dtbs-extra/allwinner"
+  install -Dm644 bin_nanopi_neo2/u-boot-sunxi-with-spl.bin "${pkgdir}/boot/u-boot-sunxi-with-spl.bin"
   install -Dm644 boot.txt "${pkgdir}/boot/boot.txt"
   install -Dm644 boot.scr "${pkgdir}/boot/boot.scr"
   install -Dm755 mkscr.sh "${pkgdir}/boot/mkscr"
   install -Dm755 flash-uboot.sh "${pkgdir}/boot/flash-uboot"
+  install -Dm644 /usr/share/sunxi-dtbs/sun50i-h5-nanopi-neo2.dtb "${pkgdir}/boot/dtbs-extra/allwinner/sun50i-h5-nanopi-neo2.dtb"
 }
 
 package_uboot-orangepi-zero-plus() {
   pkgdesc='U-Boot for Orange Pi Zero Plus'
   install=${pkgbase}.install
   provides=('uboot-sunxi')
-  conflicts=('uboot-sunxi')
-  optdepends=('orangepi-dtbs' 'uboot-tools' 'sun50i-h5-dt-overlays')
+  conflicts=('uboot-sunxi' 'orangepi-dtbs')
+  optdepends=('uboot-tools' 'sun50i-h5-dt-overlays')
 
-  install -d "${pkgdir}/boot"
-  install -Dm644 bin_orangepi_zero_plus/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"
-
+  install -d "${pkgdir}/boot/dtbs-extra/allwinner"
+  install -Dm644 bin_orangepi_zero_plus/u-boot-sunxi-with-spl.bin "${pkgdir}/boot/u-boot-sunxi-with-spl.bin"
   install -Dm644 boot.txt "${pkgdir}/boot/boot.txt"
   install -Dm644 boot.scr "${pkgdir}/boot/boot.scr"
   install -Dm755 mkscr.sh "${pkgdir}/boot/mkscr"
   install -Dm755 flash-uboot.sh "${pkgdir}/boot/flash-uboot"
+  install -Dm644 /usr/share/sunxi-dtbs/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/boot/dtbs-extra/allwinner/sun50i-h5-orangepi-zero-plus.dtb"  
 }
 
 package_uboot-orangepi-pc2() {
   pkgdesc='U-Boot for Orange Pi PC2'
   install=${pkgbase}.install
   provides=('uboot-sunxi')
-  conflicts=('uboot-sunxi')
-  optdepends=('orangepi-dtbs' 'uboot-tools' 'sun50i-h5-dt-overlays')
+  conflicts=('uboot-sunxi' 'orangepi-dtbs')
+  optdepends=('uboot-tools' 'sun50i-h5-dt-overlays')
 
-  install -d "${pkgdir}/boot"
-  install -Dm644 bin_orangepi_pc2/u-boot-sunxi-with-spl.bin "${pkgdir}/boot"
-
+  install -d "${pkgdir}/boot/dtbs-extra/allwinner"
+  install -Dm644 bin_orangepi_pc2/u-boot-sunxi-with-spl.bin "${pkgdir}/boot/u-boot-sunxi-with-spl.bin"
   install -Dm644 boot.txt "${pkgdir}/boot/boot.txt"
   install -Dm644 boot.scr "${pkgdir}/boot/boot.scr"
   install -Dm755 mkscr.sh "${pkgdir}/boot/mkscr"
   install -Dm755 flash-uboot.sh "${pkgdir}/boot/flash-uboot"
+  install -Dm644 /usr/share/sunxi-dtbs/sun50i-h5-orangepi-pc2.dtb "${pkgdir}/boot/dtbs-extra/allwinner/sun50i-h5-orangepi-pc2.dtb"
 }
-
