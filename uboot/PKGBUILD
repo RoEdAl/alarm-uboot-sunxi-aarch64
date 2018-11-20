@@ -3,7 +3,7 @@
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2')
 pkgver=2018.11
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
