@@ -2,11 +2,11 @@
 
 ## Supported devices
 
-Board | U-Boot package
-:----:|:-------------:
-[OrangePi Zero Plus](http://www.orangepi.org/OrangePiZeroPlus/)|`uboot-orangepi-zero`
-[OrangePi PC2](http://www.orangepi.org/orangepipc2/)|`uboot-orangepi-pc2`
-[NanoPi Neo2](http://www.friendlyarm.com/index.php?route=product/product&product_id=180)|`uboot-nanopi-neo2`
+ Board | U-Boot package | Bootlog
+:-----:|:--------------:|:-------:
+[OrangePi Zero Plus](http://www.orangepi.org/OrangePiZeroPlus/)|`uboot-orangepi-zero`|[here](bootlog/orangepi-zero-plus.log)
+[OrangePi PC2](http://www.orangepi.org/orangepipc2/)|`uboot-orangepi-pc2`|[here](bootlog/orangepi-pc2.log)
+[NanoPi Neo2](http://www.friendlyarm.com/index.php?route=product/product&product_id=180)|`uboot-nanopi-neo2`|[here](bootlog/nanopi-neo2.log)
 
 Theese bootloaders are ready to apply additional DT overlays from [Armbian's Device Tree overlays for sunxi devices](//github.com/armbian/sunxi-DT-overlays).
 See [this](//github.com/RoEdAl/alarm-sunxi-dt-overlays-aarch64) repository for more info.
