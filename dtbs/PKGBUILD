@@ -1,7 +1,7 @@
 # Maintainer: Edmunt Pienkowsky <roed@onet.eu>
 
 pkgname='sunxi-dtbs'
-pkgver=4.19.p0
+pkgver=4.19.p1
 pkgrel=1
 pkgdesc='Additional DTBs for Allwinder-based boards'
 conflicts=('orangepi-dtbs' 'nanopi-dtbs')
@@ -16,13 +16,23 @@ options=('!strip')
 
 _cfgrel=5dbd7f23036728f1e7fab56451f7416ccceccbf7
 
+_patches=(
+	'0001-arm-dts-sunxi-OrangePi-Zero-Plus-improve-WiFi-bindin.patch'
+)
 source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
-	"config-${pkgver}::http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config")
+	"config-${pkgver}::http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config"
+	${_patches[@]})
 md5sums=('740a90cf810c2105df8ee12e5d0bb900'
-         '1fadeca6502c809ada798982be336e37')
+         '1fadeca6502c809ada798982be336e37'
+         '568e33fc2c3821adaf4cce24d93225ca')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
+
+  for i in ${_patches[@]}; do
+    # msg2 "Applying ${i}"
+    git apply ../${i}
+  done
 
   cat "${srcdir}/config-${pkgver}" > ./.config
 
@@ -32,7 +42,7 @@ prepare() {
 
 build() {
   cd "${srcdir}/${_srcname}"
-  
+
   make prepare
   env DTC_FLAGS=--symbols make dtbs
 }

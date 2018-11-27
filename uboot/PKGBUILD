@@ -8,7 +8,7 @@ arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
 options=('!strip')
-makedepends=('bc' 'python2' 'swig' 'dtc' 'sunxi-dtbs=4.19.p0')
+makedepends=('bc' 'python2' 'swig' 'dtc' 'sunxi-dtbs=4.19.p1')
 backup=(
 	'boot/boot.txt'
 	'boot/boot.scr')

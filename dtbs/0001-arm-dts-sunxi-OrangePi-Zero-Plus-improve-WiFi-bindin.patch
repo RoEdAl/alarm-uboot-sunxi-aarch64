@@ -1,0 +1,94 @@
+From d94123656b03e0dab079f8e4b80aec050d0b7403 Mon Sep 17 00:00:00 2001
+From: Edmunt Pienkowsky <roed@onet.eu>
+Date: Tue, 27 Nov 2018 13:15:49 +0100
+Subject: [PATCH] arm: dts: sunxi: OrangePi Zero Plus - improve WiFi bindings
+
+Also add SY8113B CPU regulator used by Orange Pi Zero Plus board.
+
+Based on 3c5f893e96af6d4fe6cc64c24ed7de7d4e3a2fa6#diff-9824c39b193d0a7cd0ed21b53bd47d87 commit (add SY8113B regulator used by Orange Pi Zero board).
+
+Signed-off-by: Edmunt Pienkowsky <roed@onet.eu>
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
+index 1238de25a969..15e41ae05ff5 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
+@@ -48,6 +48,34 @@
+ 		};
+ 	};
+ 
++	reg_vcc_wifi: vcc-wifi-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc-wifi";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&pio 0 20 GPIO_ACTIVE_HIGH>; /* PA20 */
++		startup-delay-us = <70000>;
++		enable-active-high;
++        };
++
++	reg_vdd_cpux: vdd-cpux-regulator {
++		compatible = "regulator-gpio";
++		regulator-name = "vdd-cpux";
++		regulator-type = "voltage";
++		regulator-boot-on;
++		regulator-always-on;
++		regulator-min-microvolt = <1100000>;
++		regulator-max-microvolt = <1300000>;
++		regulator-ramp-delay = <50>; /* 4ms */
++
++		gpios = <&r_pio 0 6 GPIO_ACTIVE_HIGH>; /* PL6 */
++		enable-active-high;
++		gpios-states = <1>;
++		states = <1100000 0
++			  1300000 1>;
++	};
++
++
+ 	reg_gmac_3v3: gmac-3v3 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "gmac-3v3";
+@@ -57,6 +85,18 @@
+ 		enable-active-high;
+ 		gpio = <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
+ 	};
++
++	wifi_pwrseq: wifi_pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		pinctrl-names = "default";
++		reset-gpios = <&r_pio 0 7 GPIO_ACTIVE_LOW>; /* PL7 */
++		post-power-on-delay-ms = <200>;
++        };
++
++};
++
++&cpu0 {
++	cpu-supply = <&reg_vdd_cpux>;
+ };
+ 
+ &ehci0 {
+@@ -92,6 +132,8 @@
+ 
+ &mmc1 {
+ 	vmmc-supply = <&reg_vcc3v3>;
++	vqmmc-supply = <&reg_vcc_wifi>;
++	mmc-pwrseq = <&wifi_pwrseq>;
+ 	bus-width = <4>;
+ 	non-removable;
+ 	status = "okay";
+@@ -100,8 +142,11 @@
+ 	 * Explicitly define the sdio device, so that we can add an ethernet
+ 	 * alias for it (which e.g. makes u-boot set a mac-address).
+ 	 */
+-	rtl8189ftv: sdio_wifi@1 {
++	rtl8189ftv: wifi@1 {
+ 		reg = <1>;
++		interrupt-parent = <&pio>;
++		interrupts = <6 10 IRQ_TYPE_EDGE_RISING>; /* PG10 / EINT10 */
++		interrupt-names = "host-wake";
+ 	};
+ };
+ 
+-- 
+2.19.2
+
