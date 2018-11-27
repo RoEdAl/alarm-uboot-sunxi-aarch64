@@ -1,7 +1,7 @@
 # Maintainer: Edmunt Pienkowsky <roed@onet.eu>
 
 pkgname='sunxi-dtbs'
-pkgver=4.19.0
+pkgver=4.19.p0
 pkgrel=1
 pkgdesc='Additional DTBs for Allwinder-based boards'
 conflicts=('orangepi-dtbs' 'nanopi-dtbs')
@@ -10,7 +10,7 @@ _srcname=linux-4.19
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-depends=('linux>=4.19.0')
+depends=('linux>4.19')
 makedepends=('bc' 'git')
 options=('!strip')
 
@@ -40,10 +40,16 @@ build() {
 package() {
   cd "${srcdir}/${_srcname}"
 
+  local -a _dtbs=(
+    'sun50i-h5-nanopi-neo2.dtb'
+    'sun50i-h5-orangepi-zero-plus.dtb'
+    'sun50i-h5-orangepi-pc2.dtb'
+  )
   local _dstdir=usr/share/${pkgname}
+
   mkdir -p "${pkgdir}/${_dstdir}"
 
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi-neo2.dtb "${pkgdir}/${_dstdir}"
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/${_dstdir}"
-  cp arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dtb "${pkgdir}/${_dstdir}"
+  for i in ${_dtbs[@]}; do
+    cp arch/arm64/boot/dts/allwinner/${i} "${pkgdir}/${_dstdir}"
+  done
 }
