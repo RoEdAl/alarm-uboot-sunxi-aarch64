@@ -74,7 +74,8 @@ Replace sdX in the following instructions with the device name for the SD card a
    ```
 1. Install *U-Boot* package:
    ```
-   pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
+   wget https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
+   pacman -U uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
     ```
 
 ### Separate boot (ext4) and root (f2fs) partitions
