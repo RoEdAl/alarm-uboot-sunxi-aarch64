@@ -1,4 +1,4 @@
-# Arch Linux ARM - U-Boot Bootloaders for Allwinner H5 based boards
+# Arch Linux ARM - U-Boot bootloaders for Allwinner-based boards [64-bit]
 
 ## Supported devices
 
@@ -72,7 +72,7 @@ Replace sdX in the following instructions with the device name for the SD card a
    pacman-key --init
    pacman-key --populate archlinuxarm
    ```
-1. Install also *U-Boot* package:
+1. Install *U-Boot* package:
    ```
    pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
     ```
@@ -164,9 +164,10 @@ Replace sdX in the following instructions with the device name for the SD card a
    pacman-key --init
    pacman-key --populate archlinuxarm
    ```
-1. Install also *U-Boot* package:
+1. Install *U-Boot* package:
    ```
-   pacman -U https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
+   wget https://github.com/RoEdAl/alarm-uboot-sunxi-aarch64/releases/download/vx-y/uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
+   pacman -U uboot-<your board name>-yyyy.mm-r-aarch64.pkg.tar.xz
    ```
 1. Install `f2fs-tools` package and rebuild *initcpio*:
    ```
