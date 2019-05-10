@@ -1,32 +1,32 @@
 # Maintainer: Edmunt Pienkowsky <roed@onet.eu>
 
 pkgname='sunxi-dtbs'
-pkgver=4.20.p1
+pkgver=5.1.p1
 pkgrel=1
 pkgdesc='Additional DTBs for Allwinder-based boards'
 conflicts=('orangepi-dtbs' 'nanopi-dtbs')
 replaces=('orangepi-dtbs' 'nanopi-dtbs')
-_srcname=linux-4.20
+_srcname=linux-5.1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-depends=('linux>4.20')
+depends=('linux>5.1')
 makedepends=('bc' 'git')
 options=('!strip')
 
-_cfgrel=de62717a31de981a63935c17a8250be413ff255f
+_cfgrel=b54f29537ea435daf6efe0ead99e37cf7238cbd3
 
 _patches=(
 	'0001-arm-dts-sunxi-OrangePi-Zero-Plus-improve-WiFi-bindin.patch'
 	'0002-arm64-dts-sunxi-Orange-Pi-PC2-disable-RTC.patch'
 )
-source=("http://www.kernel.org/pub/linux/kernel/v4.x/${_srcname}.tar.xz"
+source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
 	"config-${pkgver}::http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config"
 	${_patches[@]})
-md5sums=('d39dd4ba2d5861c54b90d49be19eaf31'
-         '38e8d478b72e09dbd952638dc4cf348e'
-         'a43f4fc34934efe5757fceebdd8a9aed'
-         '586250871741343b2abc5910a6e75692')
+md5sums=('15fbdff95ff98483069ac6e215b9f4f9'
+         'bc8804313dfd92134ad586f5797c918d'
+         'd97a45949d4b487768ce319479bbd222'
+         '9f43c19314bff49bd601ec4cd31f78c2')
 
 prepare() {
   cd "${srcdir}/${_srcname}"

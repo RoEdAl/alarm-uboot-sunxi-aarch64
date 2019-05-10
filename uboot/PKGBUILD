@@ -2,13 +2,13 @@
 
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2')
-pkgver=2019.01
+pkgver=2019.04
 pkgrel=1
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
 options=('!strip')
-makedepends=('bc' 'python2' 'swig' 'dtc' 'sunxi-dtbs=4.20.p1')
+makedepends=('bc' 'python2' 'swig' 'dtc' 'sunxi-dtbs=5.1.p1')
 backup=(
 	'boot/boot.txt'
 	'boot/boot.scr')
@@ -23,8 +23,8 @@ source=('atf1::git+https://github.com/ARM-software/arm-trusted-firmware.git'
 	'mkscr.sh'
 	'flash-uboot.sh')
 md5sums=('SKIP'
-         '0adbc6c755768f0b78a2a0decf0b253a'
-         '2161659c312bd129b0ab2e68615b2631'
+         '543299cbbf0b9c0ae0c9579a006df2b7'
+         'd8e132b8ae37a3ea3fd2ca9b04a3b1f7'
          '1d64d5946cfc3f7c2ae877f2e892152d'
          '741e729f28b8cfffb1b85a2588e4eb1f'
          'd46c501c5e750bcdf53263733ab94f9f'
