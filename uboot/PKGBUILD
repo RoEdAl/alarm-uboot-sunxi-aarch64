@@ -1,14 +1,14 @@
 # Maintainer: Edmunt Pienkowsky <roed@onet.eu>
 
 pkgbase='uboot-sun50i-h5'
-pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2')
-pkgver=2019.04
+pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2' 'uboot-orangepi-one-plus')
+pkgver=2019.10
 pkgrel=1
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
 options=('!strip')
-makedepends=('bc' 'python2' 'swig' 'dtc' 'sunxi-dtbs=5.1.p1')
+makedepends=('bc' 'python2' 'swig' 'dtc' 'sunxi-dtbs=5.3.p1')
 backup=(
 	'boot/boot.txt'
 	'boot/boot.scr')
@@ -23,14 +23,14 @@ source=('atf1::git+https://github.com/ARM-software/arm-trusted-firmware.git'
 	'mkscr.sh'
 	'flash-uboot.sh')
 md5sums=('SKIP'
-         '543299cbbf0b9c0ae0c9579a006df2b7'
-         'd8e132b8ae37a3ea3fd2ca9b04a3b1f7'
-         '1d64d5946cfc3f7c2ae877f2e892152d'
+         '216b68925ab4cf3af6a2e3aeb2c47a58'
+         'dc93373f4665422ce25a554c6b8ae8e9'
+         '613b53cefa77002db8d046a56677ea83'
          '9bc1481b93f6a68e4c697fdf3a638ffc'
          'd46c501c5e750bcdf53263733ab94f9f'
          '2881da461476253d93a74a7c4a4c7ad3')
 
-_boards=('nanopi_neo2' 'orangepi_zero_plus' 'orangepi_pc2')
+_boards=('nanopi_neo2' 'orangepi_zero_plus' 'orangepi_pc2' 'orangepi_one_plus')
 
 prepare() {
   cd u-boot-${pkgver}
@@ -97,6 +97,22 @@ package_uboot-orangepi-zero-plus() {
   install -Dm755 mkscr.sh "${pkgdir}/boot/mkscr"
   install -Dm755 flash-uboot.sh "${pkgdir}/boot/flash-uboot"
   install -Dm644 /usr/share/sunxi-dtbs/sun50i-h5-orangepi-zero-plus.dtb "${pkgdir}/boot/dtbs-extra/allwinner/sun50i-h5-orangepi-zero-plus.dtb"  
+}
+
+package_uboot-orangepi-one-plus() {
+  pkgdesc='U-Boot for Orange Pi One Plus'
+  install=${pkgbase}.install
+  provides=('uboot-sunxi')
+  conflicts=('uboot-sunxi' 'orangepi-dtbs')
+  optdepends=('uboot-tools')
+
+  install -d "${pkgdir}/boot/dtbs-extra/allwinner"
+  install -Dm644 bin_orangepi_zero_plus/u-boot-sunxi-with-spl.bin "${pkgdir}/boot/u-boot-sunxi-with-spl.bin"
+  install -Dm644 boot.txt "${pkgdir}/boot/boot.txt"
+  install -Dm644 boot.scr "${pkgdir}/boot/boot.scr"
+  install -Dm755 mkscr.sh "${pkgdir}/boot/mkscr"
+  install -Dm755 flash-uboot.sh "${pkgdir}/boot/flash-uboot"
+  install -Dm644 /usr/share/sunxi-dtbs/sun50i-h6-orangepi-one-plus.dtb "${pkgdir}/boot/dtbs-extra/allwinner/sun50i-h6-orangepi-one-plus.dtb"
 }
 
 package_uboot-orangepi-pc2() {

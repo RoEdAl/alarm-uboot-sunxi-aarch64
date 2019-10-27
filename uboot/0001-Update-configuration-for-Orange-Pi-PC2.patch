@@ -1,23 +1,23 @@
-From 106fb585098d7822203be3d27bc460f93199bb81 Mon Sep 17 00:00:00 2001
+From f9ae7ebfbe1e1d0d26bd2df3056e9deddc29d7a5 Mon Sep 17 00:00:00 2001
 From: Edmunt Pienkowsky <roed@onet.eu>
-Date: Fri, 16 Nov 2018 08:24:42 +0000
+Date: Sun, 27 Oct 2019 18:59:33 +0100
 Subject: [PATCH] Update configuration for Orange Pi PC2
 
 Signed-off-by: Edmunt Pienkowsky <roed@onet.eu>
 
 diff --git a/configs/orangepi_pc2_defconfig b/configs/orangepi_pc2_defconfig
-index ad837382c8..feb1437f79 100644
+index ba0f2d562b..17cc9a07ff 100644
 --- a/configs/orangepi_pc2_defconfig
 +++ b/configs/orangepi_pc2_defconfig
-@@ -2,7 +2,7 @@ CONFIG_ARM=y
- CONFIG_ARCH_SUNXI=y
+@@ -3,7 +3,7 @@ CONFIG_ARCH_SUNXI=y
+ CONFIG_NR_DRAM_BANKS=1
  CONFIG_SPL=y
  CONFIG_MACH_SUN50I_H5=y
 -CONFIG_DRAM_CLK=672
 +CONFIG_DRAM_CLK=624
  CONFIG_DRAM_ZQ=3881977
+ # CONFIG_DRAM_ODT_EN is not set
  CONFIG_MACPWR="PD6"
- CONFIG_SPL_SPI_SUNXI=y
 -- 
-2.21.0
+2.23.0
 

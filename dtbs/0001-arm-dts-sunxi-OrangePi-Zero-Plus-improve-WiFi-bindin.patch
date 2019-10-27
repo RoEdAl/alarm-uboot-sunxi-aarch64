@@ -1,4 +1,4 @@
-From 55e55c3fd9745d179933f5f8108127f6bab13381 Mon Sep 17 00:00:00 2001
+From d038b70102ddb4d68112fe58cb08f7e41032c925 Mon Sep 17 00:00:00 2001
 From: Edmunt Pienkowsky <roed@onet.eu>
 Date: Tue, 27 Nov 2018 13:15:49 +0100
 Subject: [PATCH 1/2] arm: dts: sunxi: OrangePi Zero Plus - improve WiFi
@@ -11,7 +11,7 @@ Based on 3c5f893e96af6d4fe6cc64c24ed7de7d4e3a2fa6#diff-9824c39b193d0a7cd0ed21b53
 Signed-off-by: Edmunt Pienkowsky <roed@onet.eu>
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
-index 1238de25a969..15e41ae05ff5 100644
+index db6ea7b58999..617428594cde 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
 @@ -48,6 +48,34 @@
@@ -91,5 +91,5 @@ index 1238de25a969..15e41ae05ff5 100644
  };
  
 -- 
-2.21.0
+2.23.0
 
