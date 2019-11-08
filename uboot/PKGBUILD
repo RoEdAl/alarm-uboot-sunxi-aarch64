@@ -3,7 +3,7 @@
 pkgbase='uboot-sun50i-h5'
 pkgname=('uboot-nanopi-neo2' 'uboot-orangepi-zero-plus' 'uboot-orangepi-pc2' 'uboot-orangepi-one-plus')
 pkgver=2019.10
-pkgrel=2
+pkgrel=3
 arch=('aarch64')
 url="http://git.denx.de/u-boot.git/"
 license=('GPL')
@@ -15,7 +15,7 @@ backup=(
 _patches=(
 	'0001-Update-configuration-for-Orange-Pi-PC2.patch'
 )
-_arm_trusted_firmware_ver='2.1'
+_arm_trusted_firmware_ver='2.2'
 source=(
 	"ftp://ftp.denx.de/pub/u-boot/u-boot-${pkgver}.tar.bz2"
 	"arm-trusted-firmware-${_arm_trusted_firmware_ver}.tar.gz::http://github.com/ARM-software/arm-trusted-firmware/archive/v${_arm_trusted_firmware_ver}.tar.gz"
@@ -25,7 +25,7 @@ source=(
 	'mkscr.sh'
 	'flash-uboot.sh')
 md5sums=('216b68925ab4cf3af6a2e3aeb2c47a58'
-         '75c8f4958fb493d9bd7a8e5a9636ec18'
+         '22349ddad49c55a240bd86396342b6f9'
          'dc93373f4665422ce25a554c6b8ae8e9'
          '613b53cefa77002db8d046a56677ea83'
          '9bc1481b93f6a68e4c697fdf3a638ffc'
