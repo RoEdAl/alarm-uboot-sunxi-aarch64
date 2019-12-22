@@ -6,7 +6,7 @@
 :-----:|:--------------:|:---------------:|:-------:|
 [OrangePi Zero Plus](http://www.orangepi.org/OrangePiZeroPlus/)|`uboot-orangepi-zero`|[`rtl8189fs-dkms`](//github.com/RoEdAl/alarm-wifi-dkms/tree/master/rtl8189fs-dkms)|[here](bootlog/orangepi-zero-plus.log)
 [OrangePi PC2](http://www.orangepi.org/orangepipc2/)|`uboot-orangepi-pc2`|N/A|[here](bootlog/orangepi-pc2.log)
-[NanoPi Neo2](http://www.friendlyarm.com/index.php?route=product/product&product_id=180)|`uboot-nanopi-neo2`|N/A|[here](bootlog/nanopi-neo2.log)
+[NanoPi Neo2](http://www.friendlyarm.com/index.php?route=product/product&product_id=180)|`uboot-nanopi-neo2`|N/A|[here](bootlog/nanopi-neo2.log) [1G](bootlog/nanopi-neo2-1g.log)
 
 Theese bootloaders are ready to apply additional DT overlays from [Armbian's Device Tree overlays for sunxi devices](//github.com/armbian/sunxi-DT-overlays).
 See [this](//github.com/RoEdAl/alarm-sunxi-dt-overlays-aarch64) repository for more info.
@@ -99,7 +99,7 @@ Replace sdX in the following instructions with the device name for the SD card a
    - Write the partition table and exit by typing **w**.
 1. Create the boot filesystem:
    ```
-   mkfs.ext4 /dev/sdX1
+   mkfs.ext4 /dev/sdX1 -O ^has_journal,^ext_attr,^huge_file -m 0
    ```
 1. Mount the filesystem:
    ```
