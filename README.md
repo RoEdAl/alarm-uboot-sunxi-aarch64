@@ -175,6 +175,17 @@ Replace sdX in the following instructions with the device name for the SD card a
    pacman -Syu f2fs-tools
    mkinitcpio -p linux-aarch64
    ```
+1. Change root filesystem mount flags (optional):
+   - Edit `/boot/boot.txt` U-Boot script and add following option to `bootargs` environment variable:
+     ```
+     rootflags=nodiscard,relatime,lazytime,background_gc=sync
+     ```
+   - Compile modified script and reboot:
+     ```
+     cd /boot
+     ./mkscr
+     reboot
+     ```
 
 ## Build issues
 
