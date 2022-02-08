@@ -1,20 +1,19 @@
 # Maintainer: Edmunt Pienkowsky <roed@onet.eu>
 
 pkgname='sunxi-dtbs'
-pkgver=5.6.p1
+pkgver=5.16.p1
 pkgrel=1
 pkgdesc='Additional DTBs for Allwinder-based boards'
 conflicts=('orangepi-dtbs' 'nanopi-dtbs')
 replaces=('orangepi-dtbs' 'nanopi-dtbs')
-_srcname=linux-5.6
+_srcname=linux-5.16
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-depends=('linux>5.6')
 makedepends=('bc' 'git')
 options=('!strip')
 
-_cfgrel=de0a95bc6f320b4067d9700b79dd9874c4ce9232
+_cfgrel=512f287353f7320125c24ab94bbee2f031ad8542
 
 _patches=(
 	'0001-arm-dts-sunxi-OrangePi-Zero-Plus-improve-WiFi-bindin.patch'
@@ -23,10 +22,10 @@ _patches=(
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
 	"config-${pkgver}::http://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/${_cfgrel}/core/linux-aarch64/config"
 	${_patches[@]})
-md5sums=('7b9199ec5fa563ece9ed585ffb17798f'
-         'be2547f1a2229707e8ab4bd0f02cb5bb'
-         'f08cb405d7202174b2d5e8267f51ceca'
-         '4c17f111a9807883e473cfb02af9e2fd')
+md5sums=('e6680ce7c989a3efe58b51e3f3f0bf93'
+         'e30692ae916c1378fbb7b1845792b2e0'
+         '0b570140b2025eebd5878f544ea255df'
+         '6db8b898ba6f0172c84a428e47ce623c')
 
 prepare() {
   cd "${srcdir}/${_srcname}"
@@ -56,7 +55,6 @@ package() {
     'sun50i-h5-nanopi-neo2'
     'sun50i-h5-orangepi-zero-plus'
     'sun50i-h5-orangepi-pc2'
-    'sun50i-h6-orangepi-one-plus'
   )
   local _dstdir=usr/share/${pkgname}
 

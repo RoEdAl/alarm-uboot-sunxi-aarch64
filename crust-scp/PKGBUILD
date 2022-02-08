@@ -1,0 +1,28 @@
+# Maintainer: Edmunt Pienkowsky <roed@onet.eu>
+
+pkgname=crust-scp
+pkgver=0.5
+pkgrel=1
+arch=('any')
+url='http://github.com/crust-firmware/crust'
+pkgdesc='Crust: Libre SCP (System Control Processor) firmware for AllWinner SunXi SoCs'
+license=('GPL2')
+options=('!strip')
+makedepends=('or1k-elf-gcc' 'aarch64-linux-gnu-gcc')
+source=("crust-firmware-${pkgver}.tar.gz::http://github.com/crust-firmware/crust/archive/v${pkgver}.tar.gz")
+md5sums=('5702ac6bb30a194434f82099bb244d50')
+
+build() {
+  local MAKEOPTS='V=0'
+
+  # SCP - modified environments
+  cd ${srcdir}/crust-${pkgver}
+  env -u CXXFLAGS -u LDFLAGS CFLAGS=-fno-stack-protector make orangepi_zero_plus_defconfig ${MAKEOPTS}
+  env -u CXXFLAGS -u LDFLAGS CFLAGS=-fno-stack-protector HOST_COMPILE=aarch64-unknown-linux-gnu- CROSS_COMPILE=or1k-elf- make scp ${MAKEOPTS}
+}
+
+package() {
+  cd ${srcdir}/crust-${pkgver}
+  install -d "${pkgdir}/usr/share/crust-firmware"
+  install -Dm644 build/scp/scp.bin "${pkgdir}/usr/share/crust-firmware/scp-h5.bin"
+}

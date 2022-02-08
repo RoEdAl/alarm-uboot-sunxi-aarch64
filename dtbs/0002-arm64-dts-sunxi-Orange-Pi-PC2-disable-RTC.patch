@@ -1,4 +1,4 @@
-From 91904be291f557998860fa0c3d809d758bc268cd Mon Sep 17 00:00:00 2001
+From c7871844503b3342b1a736c01246ecd13e3c2059 Mon Sep 17 00:00:00 2001
 From: Edmunt Pienkowsky <roed@onet.eu>
 Date: Fri, 23 Feb 2018 08:10:51 +0000
 Subject: [PATCH 2/2] arm64: dts: sunxi: Orange Pi PC2 - disable RTC
@@ -6,10 +6,10 @@ Subject: [PATCH 2/2] arm64: dts: sunxi: Orange Pi PC2 - disable RTC
 Signed-off-by: Edmunt Pienkowsky <roed@onet.eu>
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
-index e126c1c9f05c..415aff8f8201 100644
+index 1010c1b22d2e..10f348e360d4 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
-@@ -124,6 +124,10 @@
+@@ -86,6 +86,10 @@ reg_usb0_vbus: usb0-vbus {
  	};
  };
  
@@ -20,6 +20,3 @@ index e126c1c9f05c..415aff8f8201 100644
  &codec {
  	allwinner,audio-routing =
  		"Line Out", "LINEOUT",
--- 
-2.23.0
-

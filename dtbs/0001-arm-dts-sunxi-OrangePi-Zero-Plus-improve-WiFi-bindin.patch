@@ -1,4 +1,4 @@
-From d038b70102ddb4d68112fe58cb08f7e41032c925 Mon Sep 17 00:00:00 2001
+From 61b1e83486ecd973e1a86f55ee0ee79b7af7f9ea Mon Sep 17 00:00:00 2001
 From: Edmunt Pienkowsky <roed@onet.eu>
 Date: Tue, 27 Nov 2018 13:15:49 +0100
 Subject: [PATCH 1/2] arm: dts: sunxi: OrangePi Zero Plus - improve WiFi
@@ -11,10 +11,10 @@ Based on 3c5f893e96af6d4fe6cc64c24ed7de7d4e3a2fa6#diff-9824c39b193d0a7cd0ed21b53
 Signed-off-by: Edmunt Pienkowsky <roed@onet.eu>
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
-index db6ea7b58999..617428594cde 100644
+index 7ec5ac850a0d..4b8b124981b5 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus.dts
-@@ -48,6 +48,34 @@
+@@ -45,6 +45,34 @@ led-1 {
  		};
  	};
  
@@ -49,7 +49,7 @@ index db6ea7b58999..617428594cde 100644
  	reg_gmac_3v3: gmac-3v3 {
  		compatible = "regulator-fixed";
  		regulator-name = "gmac-3v3";
-@@ -57,6 +85,18 @@
+@@ -54,6 +82,18 @@ reg_gmac_3v3: gmac-3v3 {
  		enable-active-high;
  		gpio = <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
  	};
@@ -68,7 +68,7 @@ index db6ea7b58999..617428594cde 100644
  };
  
  &ehci0 {
-@@ -92,6 +132,8 @@
+@@ -89,6 +129,8 @@ &mmc0 {
  
  &mmc1 {
  	vmmc-supply = <&reg_vcc3v3>;
@@ -77,7 +77,7 @@ index db6ea7b58999..617428594cde 100644
  	bus-width = <4>;
  	non-removable;
  	status = "okay";
-@@ -100,8 +142,11 @@
+@@ -97,8 +139,11 @@ &mmc1 {
  	 * Explicitly define the sdio device, so that we can add an ethernet
  	 * alias for it (which e.g. makes u-boot set a mac-address).
  	 */
@@ -90,6 +90,3 @@ index db6ea7b58999..617428594cde 100644
  	};
  };
  
--- 
-2.23.0
-

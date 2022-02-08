@@ -8,6 +8,7 @@
 *.log
 *.log.*
 *.sig
+config-*
 
 pkg/
 src/
